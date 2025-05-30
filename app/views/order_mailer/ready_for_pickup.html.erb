@@ -1,0 +1,22 @@
+<h2>Hi <%= @customer.name %>,</h2>
+<p>Your order (#<%= @order.id %>) is now ready for pickup!</p>
+
+<h3>Order Summary:</h3>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li><%= item.item.name %> x <%= item.quantity %> — Rs. <%= item.discounted_price %></li>
+  <% end %>
+</ul>
+
+<p><strong>Total Price:</strong> Rs. <%= @order.total_price %></p>
+
+<h3>Applied Discounts:</h3>
+<ul>
+  <li>Membership Discount: Rs. <%= @discounts[:membership_discount] %></li>
+  <li>BOGO (Buy One Get One 50%): Rs. <%= @discounts[:bogo_discount] %></li>
+  <li><strong>Total Discounts:</strong> Rs. <%= @discounts[:total_discount] %></li>
+</ul>
+
+<p><strong>Amount to Pay:</strong> Rs. <%= @order.total_price - (@discounts[:total_discount] || 0) %></p>
+
+<p>Thank you for shopping with us!</p>
